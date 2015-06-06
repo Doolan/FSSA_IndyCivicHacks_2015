@@ -1,65 +1,54 @@
 <!DOCTYPE html>
 <html >
-  <head>
-    <meta charset="UTF-8">
+<head>
+  <meta charset="UTF-8">
+  <title>CheckIn</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="javascript/main.js"></script>
+</head>
 
+<body class="align">
 
-    <title>CheckIn</title>
-    
-    
-    
-    
-        <link rel="stylesheet" href="css/style.css">
+<div class="site__container">
 
-    
-    
-    
-  </head>
+  <div class="grid__container">
 
-  <body>
+    <form  method="post" class="form form--login" id="login">
 
-    <body class="align">
+      <div class="form__field">
+        <label class="fontawesome-user" for="login__username">
+          <span class="hidden">Username</span>
+        </label>
+        <input id="login__username" type="text" class="form__input" placeholder="Name" required></div>
 
-  <div class="site__container">
+      <div class="form__field">
+        <label class="fontawesome-lock" for="login__password">
+          <span class="hidden">SSN</span>
+        </label>
+        <input id="login__zipcode" type="text" class="form__input" placeholder="Zip Code"  pattern="(\d{5}([\-]\d{4})?)" required></div>
+      <div class="form__field">
+        <label class="fontawesome" for="login__DOB">DOB</label>
+        <input id="login__DOB" type="date" class="form__input" placeholder="Date of Birth" required></div>
 
-    <div class="grid__container">
+      <div class="form__field">
+        <input type="button" value="Check-In" onclick="checkin()" ></div>
+              <!-- <div class="form__field">)
+      <a href=""></div>
+      -->
+    </form>
 
-      <form action="vote2.html" method="post" class="form form--login">
+    <!--<p class="text-center">
+    Not a member?
+    <a href="#">Sign up now</a>
+    <span class="fontawesome-arrow-right"></span>
+  </p>
+  -->
+</div>
 
-        <div class="form__field">
-          <label class="fontawesome-user" for="login__username"><span class="hidden">Username</span></label>
-          <input id="login__username" type="text" class="form__input" placeholder="Name" required>
-        </div>
-
-        <div class="form__field">
-          <label class="fontawesome-lock" for="login__password"><span class="hidden">SSN</span></label>
-          <input id="login__zipcode" type="text" class="form__input" placeholder="Zip Code"  pattern="(\d{5}([\-]\d{4})?)" required>
-        </div>
-        <div class="form__field">
-          <label class="fontawesome" for="login__DOB">DOB</label>
-          <input id="login__DOB" type="date" class="form__input" placeholder="Date of Birth" required>
-        </div>
-
-        <div class="form__field">
-          <input type="submit" value="Check-In">
-        </div>
-        <!-- <div class="form__field">
-          <a href="">
-        </div> -->
-
-      </form>
-
-      <!--<p class="text--center">Not a member? <a href="#">Sign up now</a> <span class="fontawesome-arrow-right"></span></p>-->
-
-    </div>
-
-  </div>
+</div>
 
 </body>
-    
-    
-    
-    
-    
-  </body>
+
+
 </html>
