@@ -154,3 +154,4 @@ $RECYCLE.BIN/
 
 # Mac desktop service store files
 .DS_Store
+server/FSSA_IndyCivicHacks/AjaxServerControl1/WS/IISHandler1.cs
