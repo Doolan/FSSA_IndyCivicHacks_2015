@@ -1,4 +1,5 @@
 <LinearLayout
+    android:background="#f4f3ed"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity"
@@ -6,15 +7,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <TextView
+        android:textColor="#000000"
+        android:layout_marginTop="100dp"
+        android:textSize="24dp"
+        android:gravity="center"
         android:id="@+id/fnlbl"
         android:text="First Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/fnedit"
         android:hint="First Name"
         android:inputType="text"
@@ -22,12 +29,19 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:textColor="#000000"
+        android:textSize="24dp"
+        android:gravity="center"
         android:id="@+id/lnlbl"
         android:text="Last Name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/lnedit"
         android:hint="Last Name"
         android:inputType="text"
@@ -35,23 +49,55 @@
         android:layout_height="wrap_content" />
 
     <TextView
+        android:textColor="#000000"
+        android:textSize="24dp"
+        android:gravity="center"
         android:id="@+id/ssnlbl"
         android:text="Social Security Number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
         android:id="@+id/ssnedit"
         android:hint="XXX-XX-XXXX"
         android:inputType="numberPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/takePicBtn"
-        android:text="Take Pic"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="wrap_content">
 
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:textColor="#ffffff"
+            android:background="@drawable/buttonshape"
+            android:id="@+id/takePicBtn"
+            android:text="Take Pic"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+
+
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 </LinearLayout>
 

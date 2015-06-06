@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
@@ -19,6 +20,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.squareup.okhttp.MediaType;
@@ -47,12 +49,16 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Typeface tfArial = Typeface.createFromAsset(getAssets(), "arial.ttf");
+
+
 
 
         ((Button)findViewById(R.id.takePicBtn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dispatchTakePictureIntent();
+
 //                safeCameraOpen();
 //                Camera.Parameters params = mCamera.getParameters();
 //                params.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
@@ -178,6 +184,9 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ((EditText)findViewById(R.id.fnedit)).setText("");
+        ((EditText)findViewById(R.id.lnedit)).setText("");
+        ((EditText)findViewById(R.id.ssnedit)).setText("");
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 //            Bundle extras = data.getExtras();
 //            Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -195,6 +204,8 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
+                    submitAnother();
+
                 }
             });
 
@@ -234,6 +245,28 @@ public class MainActivity extends ActionBarActivity {
                 }
             }).start();
         }
+    }
+
+    private void submitAnother(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dispatchTakePictureIntent();
+            }
+        });
+
+        builder.setTitle("Finished?");
+        builder.setMessage("Would you like to scan another message?");
+
+        builder.show();
     }
 
 
