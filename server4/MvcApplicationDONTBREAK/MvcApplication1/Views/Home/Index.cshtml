@@ -1,6 +1,18 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<script>
+    window.onload =  function(){
+        $('.td').onclick = deletepress(this);
+        };
+
+    var deletepress = function(e){
+        $(e).remove();
+    }
+
+</script>
+
+
 <h1>Queue Management</h1>
 <div class="row">
 <div class="col-mid-3" style="overflow:hidden; position:relative">
@@ -9,9 +21,9 @@
             <tr><th>Client Interviews</th></tr>
         </thead>
         <tbody>
-            <tr><td>Steven</td></tr>
-            <tr><td>Ben</td></tr>
-            <tr><td>Joe</td></tr>
+            <tr><td onclick="deletepress(this)">Steven</td></tr>
+            <tr><td onclick="deletepress(this)">Ben</td></tr>
+            <tr><td onclick ="deletepress(this)">Joe</tdonclick></tr>
         </tbody>
     </table>
 </div>
@@ -21,9 +33,9 @@
             <tr><th>Specific Questions</th></tr>
         </thead>
         <tbody>
-            <tr><td>Steven</td></tr>
-            <tr><td>Ben</td></tr>
-            <tr><td>Joe</td></tr>
+            <tr><td onclick="deletepress(this)">Steven</td></tr>
+            <tr><td onclick="deletepress(this)">Ben</td></tr>
+            <tr><td onclick="deletepress(this)">Joe</td></tr>
         </tbody>
     </table>
 </div>
@@ -33,9 +45,9 @@
             <tr><th>Computer Terminals</th></tr>
         </thead>
         <tbody>
-            <tr><td>Steven</td></tr>
-            <tr><td>Ben</td></tr>
-            <tr><td>Joe</td></tr>
+            <tr><td onclick="deletepress(this)">Steven</td></tr>
+            <tr><td onclick="deletepress(this)">Ben</td></tr>
+            <tr><td onclick="deletepress(this)">Joe</td></tr>
         </tbody>
     </table>
 </div>
