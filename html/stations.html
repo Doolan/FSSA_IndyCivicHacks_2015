@@ -23,19 +23,24 @@
   <div class="site__container">
 
     <div class="grid__container">
-
-      <form action="programs2.html" method="post" class="form form--login" autocomplete="off">
+    <h3>WHERE TO GO NOW</h3>
+      <form action="login.html" method="post" class="form form--login" autocomplete="off">
 
         
         <div class="form__field">
-          <input type="button" value="I would like to register to vote" onclick="msg()">
+          <ul>
+            <li id="interview" visible>Wait for your interview</li>
+            <li id="questions" visible>Queue for questions</li>
+            <li id="benefits" visible>Apply for benefits at designated stations</li>
+            <li id="self-scan" visible>Self-scan terminals to scan documents</li>
+          </ul>
         </div>
 
         <div class="form__field">
-          <input type="submit" value="No, I am not here to register to vote">
+          <input type="submit" value="Done">
         </div>
         <div class="form__field">
-          <a href="login.html">Back</a>
+          <a href="reasons2.html">Back</a>
         </div>
 
       </form>
