@@ -24,7 +24,7 @@
 
     <div class="grid__container">
 
-      <form action="vote2.html" method="post" class="form form--login">
+      <form action="vote2.html" method="post" class="form form--login" autocomplete="off">
 
         <div class="form__field">
           <label class="fontawesome-user" for="login__username"><span class="hidden">Username</span></label>
@@ -32,14 +32,18 @@
         </div>
 
         <div class="form__field">
-          <label class="fontawesome-lock" for="login__password"><span class="hidden">SSN</span></label>
+          <label class="fontawesome-lock" for="login__password"><span class="hidden">Zip Code</span></label>
           <input id="login__zipcode" type="text" class="form__input" placeholder="Zip Code"  pattern="(\d{5}([\-]\d{4})?)" required>
+        </div>
+        <div class="form__field">
+          <label class="fontawesome-lock" for="login__password"><span class="hidden">SSN</span></label>
+          <input id="login__ssn" type="text" class="form__input" placeholder="SSN"  pattern="^d{3}-d{2}-d{4}$" required>
         </div>
         <div class="form__field">
           <label class="fontawesome" for="login__DOB">DOB</label>
           <input id="login__DOB" type="date" class="form__input" placeholder="Date of Birth" required>
         </div>
-
+        
         <div class="form__field">
           <input type="submit" value="Check-In">
         </div>
