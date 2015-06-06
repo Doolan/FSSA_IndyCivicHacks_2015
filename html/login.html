@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>CheckIn</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="javascript/main.js"></script>
+</head>
+
+<body class="align">
+
+  <div class="site__container">
+
+    <div class="grid__container">
+      <img src="fssa.png" alt="Smiley face"  height="150" width="150" />
+      <h3>Check-In</h3>
+      <form method="post" class="form form--login" autocomplete="off">
+
+        <div class="form__field">
+          <label class="fontawesome-user" for="login__username">
+            <span class="hidden">Username</span>
+          </label>
+          <input id="login__username" type="text" class="form__input" placeholder="Name" required></div>
+
+        <div class="form__field">
+          <label class="fontawesome-lock" for="login__password">
+            <span class="hidden">Zip Code</span>
+          </label>
+          <input id="login__zipcode" type="text" class="form__input" placeholder="Zip Code"  pattern="(\d{5}([\-]\d{4})?)" required></div>
+        <div class="form__field">
+          <label class="fontawesome" for="login__password">
+            <span >SSN</span>
+          </label>
+          <input id="login__ssn" type="text" class="form__input" placeholder="XXX-XX-XXXX"  pattern="^d{3}-d{2}-d{4}$" required></div>
+        <div class="form__field">
+          <label class="fontawesome" for="login__DOB">DOB</label>
+          <input id="login__DOB" type="date" class="form__input" placeholder="Date of Birth" required></div>
+
+        <div class="form__field">
+          <input type="button" value="Check-In" onclick="checkin()" ></div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
