@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
     Camera mCamera;
     Preview mPreview;
     private final OkHttpClient okHttpClient = new OkHttpClient();
-    public static final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("image/jpeg");
+    public static final MediaType MEDIA_TYPE = MediaType.parse("image/jpeg");
 
     public String[] possibledocs = {"Driver's License", "Social Security", "Birth Certificate", "Bank Statement"};
 
@@ -214,15 +214,18 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void run() {
                     try {
+
+                        Log.e("HERE", imagefile.getAbsolutePath());
+
                         Request request = new Request.Builder()
-                                .url("https://api.github.com/markdown/raw")
-                                .post(RequestBody.create(MEDIA_TYPE_MARKDOWN, imagefile))
+                                .url("http://81f85025.ngrok.io")
+                                .post(RequestBody.create(MEDIA_TYPE, imagefile))
                                 .build();
 
                         Response response = okHttpClient.newCall(request).execute();
 
                         //delete file
-                        imagefile.delete();
+                        //imagefile.delete();
                         if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
                     }catch (Exception e){
