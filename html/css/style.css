@@ -88,7 +88,7 @@ input {
   background-color: #434A52;
 }
 .form--login input[type="submit"], .form--login input[type="button"], .form--reason input[type="submit"] {
-  background-color: #ea4c88;
+  background-color: #4d7c36;
   color: #eee;
   font-weight: bold;
   text-transform: uppercase;
