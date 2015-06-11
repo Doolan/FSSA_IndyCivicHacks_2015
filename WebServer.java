@@ -70,10 +70,12 @@ public class WebServer {
             System.out.println("Received a connection");
             //System.out.println("ACCEPTING YO");
             is = s.getInputStream();
+            //BufferedReader bf = new BufferedReader(new InputStreamReader(s.getInputStream()));
  
             int count = 0;
 
             while(count != 10){
+                
                 if(is.read() == '\n') count++;
             }
 
