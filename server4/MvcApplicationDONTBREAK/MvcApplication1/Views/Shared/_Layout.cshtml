@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title Queue Manager</title>
+    <title>@ViewBag.Title</title>
     <link href="~/Images/fssa.jpeg" rel="shortcut icon" type="image/jpeg" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
@@ -28,6 +28,9 @@
                     <div class="collapse navbar-collapse" id="navbarcollapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="#">Home </a></li>
+                            <li>
+                                @Html.ActionLink("Queue", "QueueDetail", "Queue");
+                            </li>
                             @*<li>
                                 @Html.ActionLink("About", "About");
                             </li> #4d7c36
@@ -47,7 +50,6 @@
             </nav>
         </header>
         <div id="body">
-            @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="234c771b60d0469790e687950cfb1786" Name="Diagram1">
+        <EntityTypeShape EntityType="FSSAModel.DocumentType" Width="1.5" PointX="4.5" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.Office" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.Person" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.Program" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.Queue" Width="1.5" PointX="5.625" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.vistreason" Width="1.5" PointX="8.125" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.Vist" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FSSAModel.ProgramsViewed" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="FSSAModel.LocationID" ManuallyRouted="false" />
+        <AssociationConnector Association="FSSAModel.PersonID" ManuallyRouted="false" />
+        <AssociationConnector Association="FSSAModel.ProgramID" ManuallyRouted="false" />
+        <AssociationConnector Association="FSSAModel.QueueID" ManuallyRouted="false" />
+        <AssociationConnector Association="FSSAModel.Reason" ManuallyRouted="false" />
+        <AssociationConnector Association="FSSAModel.VisitsID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
