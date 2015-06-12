@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>CheckIn</title>
+  <title>Registrarse</title>
   <link rel="stylesheet" href="css/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="javascript/main.js"></script>
@@ -14,12 +14,12 @@
 
     <div class="grid__container">
       <img src="fssa.png" alt="FSSA Logo" />
-      <h1>Check-In</h1>
+      <h1>Registrarse</h1>
       <form method="post" class="form form--login" autocomplete="off">
         <div>
           <div class="form__field--label">
-            <h3> Enter Your First and Last Name  </h3>
-            <h5> (Example: John Doe)</h5>
+            <h3> Escriba su primera y última nombre </h3>
+            <h5> (Ejemplo: John Doe)</h5>
           </div>
           <div class="form__field--login form__field">
             <label class="fontawesome-user" for="login__username">
@@ -30,19 +30,19 @@
         </div>
         <div>
           <span class="form__field--label">
-        <h3> Enter Your Zip Code <br></h3>
-        <h5> (Example: 55555 or 55555-3333)</h5>
+        <h3> Escriba su código postal <br></h3>
+        <h5> (Ejemplo: 55555 or 55555-3333)</h5>
         </span>
           <span class="form__field--login form__field">
           <label class="fontawesome-lock" for="login__password">
             <span class="hidden">Zip Code</span>
           </label>
-          <input id="login__zipcode" type="text" class="form__input" placeholder="Zip Code"  pattern="(\d{5}([\-]\d{4})?)" required></span>
+          <input id="login__zipcode" type="text" class="form__input" placeholder="Código Postal"  pattern="(\d{5}([\-]\d{4})?)" required></span>
           </div>
           <div>
           <div class="form__field--label">
-        <h3> Enter Your Social Security Number <br></h3>
-        <h5> (Example: 555-55-5555)</h5>
+        <h3> Escriba su número de seguro social <br></h3>
+        <h5> (Ejemplo: 555-55-5555)</h5>
         </div>
           <div class="form__field--login form__field">
           <label class="fontawesome" for="login__password">
@@ -52,8 +52,8 @@
           </div>
           <div>
           <div class="form__field--label">
-        <h3> Retype Your Social Security Number <br></h3>
-        <h5> (Example: 555-55-5555)</h5>
+        <h3> Vuelva su número de seguro social <br></h3>
+        <h5> (Ejemplo: 555-55-5555)</h5>
         </div>
           <div class="form__field--login form__field">
           <label class="fontawesome" for="login__password">
@@ -63,18 +63,18 @@
 </div>
           <div>
           <div class="form__field--label">
-        <h3> Enter Your Date of Birth <br></h3>
-        <h5> (Example: 12/31/1990 )</h5>
+        <h3> Escriba su fecha de nacimiento <br></h3>
+        <h5> (Ejemplo: 12/31/1990 )</h5>
         </div>
           <div class="form__field--login form__field">
           <label class="fontawesome" for="login__DOB">DOB</label>
           <input id="login__DOB" type="date" class="form__input" placeholder="Date of Birth" required></div>
 </div>
           <div class="form__field form__field--enter">
-            <input type="button" value="Check-In" onclick="checkin()" >
+            <input type="button" value="Registrarse" onclick="checkin_sp()" >
           </div>
           <div class="form__field">
-          <a href="language.html">Back</a>
+          <a href="language.html">Volver</a>
         </div>
         </form>
       </div>

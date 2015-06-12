@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>CheckIn</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="javascript/main.js"></script>
+</head>
+
+<body class="align">
+
+  <div class="site__container">
+
+    <div class="grid__container">
+      <img src="fssa.png" alt="FSSA Logo" />
+      <h1>Select Language</h1>
+      <form method="post" class="form form--login" autocomplete="off">
+        <div class="form__field">
+          <input type="button" value="English" onclick="english()">
+        </div>
+        <div class="form__field">
+          <input type="button" value="Español" onclick="spanish()">
+          </div>
+        </form>
+        <script>
+function english() {
+    window.location = "login.html";
+}
+function spanish() {
+    window.location = "login_sp.html";
+}
+</script>
+      </div>
+    </div>
+  </body>
+  </html>
