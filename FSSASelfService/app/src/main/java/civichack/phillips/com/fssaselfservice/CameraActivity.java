@@ -21,25 +21,27 @@ import java.util.List;
  */
 public class CameraActivity extends Activity implements Camera.PictureCallback {
 
-    protected static final String EXTRA_IMAGE_PATH = "civichack.phillips.com.fssaselfservice.EXTRA_IMAGE_PATH";
+    protected static final int REVIEW_CODE = 234;
 
     private Camera camera;
     private CameraPreview cameraPreview;
+
+    String selectedDoc;
+    public String[] possibledocs = {"Driver's License", "Social Security", "Birth Certificate", "Bank Statement", "Other"};//TODO make 'other' work
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        setResult(RESULT_CANCELED);
+
         findViewById(R.id.cancelbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish();
+                submitAnotherDialog("Are you sure that you want to stop scanning?");
             }
         });
-
-        setResult(RESULT_CANCELED);
 
         showInstructionDialog();
 
@@ -69,8 +71,22 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
     public void onPictureTaken(byte[] data, Camera camera) {
         Log.e("LOG","Picture taken");
         String path = savePictureToFileSystem(data);
-        setResult(path);
-        finish();
+
+        Intent intentToReview = new Intent(this, ReviewActivity.class);
+        intentToReview.putExtra("filepath",path);
+        startActivityForResult(intentToReview,REVIEW_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_CANCELED) return;
+
+        setResult(Activity.RESULT_OK);
+        showConfirmDialog();
+
+        //TODO transfer data
+        //finish();
+
     }
 
     private String savePictureToFileSystem(byte[] data) {
@@ -91,12 +107,6 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
         }
     }
 
-    private void setResult(String path) {
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_IMAGE_PATH, path);
-        setResult(RESULT_OK, intent);
-    }
-
     // ALWAYS remember to release the camera when you are finished
     @Override
     protected void onPause() {
@@ -113,8 +123,6 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
         }
     }
 
-
-
     private void releaseCamera() {
         if(camera != null){
             camera.release();
@@ -126,14 +134,6 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
         Camera c = null;
         try {
             c = Camera.open();
-
-            List<Camera.Size> localSizes = c.getParameters().getSupportedPreviewSizes();
-
-            DisplayMetrics metrics = getResources().getDisplayMetrics();
-            int width = metrics.widthPixels;
-            int height = metrics.heightPixels;
-
-            Camera.Size size = getOptimalPreviewSize(localSizes,width,height );
             c.setDisplayOrientation(90);
         } catch (Exception e) {
             // Camera is not available or doesn't exist
@@ -150,44 +150,60 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
                 "2. Wait for picture to focus.\n\n" +
                 "3. Press the 'Take Picture' button when ready.\n\n" +
                 "4. Review the picture.");
-        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNeutralButton("OK", new DismissListener());
         builder.show();
     }
 
-    private Camera.Size getOptimalPreviewSize(List<Camera.Size> sizes, int w, int h) {
-        final double ASPECT_TOLERANCE = 0.1;
-        double targetRatio=(double)h / w;
-
-        if (sizes == null) return null;
-
-        Camera.Size optimalSize = null;
-        double minDiff = Double.MAX_VALUE;
-
-        int targetHeight = h;
-
-        for (Camera.Size size : sizes) {
-            double ratio = (double) size.height / size.width;
-            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE) continue;
-            if (Math.abs(size.height - targetHeight) < minDiff) {
-                optimalSize = size;
-                minDiff = Math.abs(size.height - targetHeight);
+    private void showConfirmDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Choose Document Name");
+        builder.setSingleChoiceItems(possibledocs, -1, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                selectedDoc = possibledocs[item];
             }
-        }
+        });
 
-        if (optimalSize == null) {
-            minDiff = Double.MAX_VALUE;
-            for (Camera.Size size : sizes) {
-                if (Math.abs(size.height - targetHeight) < minDiff) {
-                    optimalSize = size;
-                    minDiff = Math.abs(size.height - targetHeight);
-                }
+        builder.setNeutralButton("Submit",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                submitAnotherDialog("Would you like to scan another document?");
             }
-        }
-        return optimalSize;
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedDoc = null;
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
     }
+
+    private void submitAnotherDialog(String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNegativeButton("Finish", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        builder.setPositiveButton("Keep Scanning", new DismissListener());
+
+        builder.setTitle("Finished?");
+        builder.setMessage(message);
+
+        builder.show();
+    }
+
+    class DismissListener implements DialogInterface.OnClickListener{
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.dismiss();
+        }
+    }
+
 }
