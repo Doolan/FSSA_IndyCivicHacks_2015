@@ -25,6 +25,10 @@
             android:name=".CameraActivity"
             android:screenOrientation="portrait"
             android:label="Camera"/>
+        <activity
+            android:name=".ReviewActivity"
+            android:screenOrientation="portrait"
+            android:label="Review"/>
     </application>
 
 </manifest>

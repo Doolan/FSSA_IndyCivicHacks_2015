@@ -2,17 +2,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <civichack.phillips.com.fssaselfservice.CameraPreview
-        android:id="@+id/camera_preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ImageView
-        android:layout_marginTop="-100dp"
-        android:layout_marginBottom="-50dp"
-        android:layout_gravity="top"
-        android:src="@drawable/frame"
-        android:contentDescription="Frame for adjusting"
+    <civichack.phillips.com.fssaselfservice.TouchImageView
+        android:contentDescription="Review Pic"
+        android:id="@+id/review_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -26,20 +18,21 @@
             android:layout_height="wrap_content"
             android:background="@drawable/buttonhandler"
             android:layout_marginBottom="10dp"
-            android:onClick="onCaptureClick"
+            android:onClick="onAccept"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:text="  TAKE PIC  " />
+            android:text="  ACCEPT  " />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/buttonhandler"
             android:layout_marginBottom="10dp"
+            android:onClick="onReject"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/cancelbtn"
-            android:text="  CANCEL  " />
+            android:text="  REJECT  " />
 
     </LinearLayout>
 </FrameLayout>
