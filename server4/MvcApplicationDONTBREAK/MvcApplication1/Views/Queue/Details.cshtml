@@ -1,0 +1,64 @@
+﻿@model MvcApplication1.Models.QueueModel
+
+@{
+    ViewBag.Title = "QueueOverview";
+    //Layout = _Layout.cshtml;
+    List<MvcApplication1.get_Queue_Details_Result> result = MvcApplication1.Controllers.QueueController.GetQueueDetails(ViewBag.Queue, ViewBag.Location);
+}
+
+<script>
+    var goToPersonDetail = function(id){
+         $.ajax({
+            url: 'Queue/SetDetails',
+            type: 'POST',            
+            //contentType: 'application/json; charset=utf-8',
+            data: {PersonID: id},//JSON.stringify(Packet),
+            success: function(data)
+            {
+                //window.location = 'Queue/Details';
+            },
+            error: function(request, status, error)
+            {
+                console.log("failed post");
+            }
+        });
+    }
+    var removePerson = function(id){
+        $.ajax({
+            url: 'Queue/SetDetails',
+            type: 'POST',            
+            //contentType: 'application/json; charset=utf-8',
+            data: {PersonID: id},//JSON.stringify(Packet),
+            success: function(data)
+            {
+                $(this).remove();
+                //window.location = 'Queue/Details';
+            },
+            error: function(request, status, error)
+            {
+                console.log("failed post");
+            }
+        });
+
+</script>
+<h2>@ViewBag.Queue</h2>
+<div class="row">
+    <div class="col-mid-3" style="overflow:hidden; position:relative">
+        <table class="table table-hover">
+            <thead>
+                <tr><th>Name</th><th>Reason</th><td></td></tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < result.Count; i++)
+                {
+                    <tr onclick="goToPersonDetail('@result[i].PersonID')"><td>@result[i].Name</td><td>@result[i].Reason</td><td>
+                                                                                                                                                <button type="button" class="btn btn-success" onclick="goToPersonDetail('@result[i].PersonID')">View</button>
+                                                                                                                                                <button type="button" class="btn btn-danger" onclick="removePerson('@result[i].PersonID')">Remove</button>
+                        
+                        </td></tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

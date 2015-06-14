@@ -3,14 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcApplication1.Models;
 
 namespace MvcApplication1.Controllers
 {
     public class QueueController : Controller
     {
-        public ActionResult QueueDetail()
+        string queueDetailPane;
+        public ActionResult Index()
         {
-            ViewBag.Message = "QueueDetail";
+            ViewBag.Message = "Queue Overview";
+            ViewBag.Location = 5;
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult SetDetails(string queueName)
+        {
+            //ViewBag.Message = "QueueDetail";
+           // ViewBag.Queue = queueName;
+            System.Web.HttpContext.Current.Session["queueName"] = queueName;
+            //queueDetailPane = queueName;
+            //Console.WriteLine(queueName);
+           // string a = queueName.ToString();
+            //Packet b = (Packet)queueName;
+            //Console.WriteLine(queueName);
+            //ViewBag.Location = 5;
+            //return View();
+            return Redirect("Details");
+        }
+
+        public ActionResult Details()
+        {
+            ViewBag.Queue = System.Web.HttpContext.Current.Session["queueName"];
+            ViewBag.Location = 5;
             return View();
         }
 
@@ -26,15 +53,7 @@ namespace MvcApplication1.Controllers
 
             return null;
         }
-
-
-        // GET: /Queue/
-
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+ 
         //[Authorize]
         public static List<get_Queue_Status_Result> GetQueueNames()
         {
@@ -43,6 +62,13 @@ namespace MvcApplication1.Controllers
 
            // return RedirectToAction("GetQueueNames",queues);
             return queues;
+        }
+
+        public static List<get_Queue_Details_Result> GetQueueDetails(string queueName, int location)
+        {
+            FSSAEntities db = new FSSAEntities();
+            List<get_Queue_Details_Result> details = db.get_Queue_Details(queueName, location).ToList<get_Queue_Details_Result>();
+            return details;
         }
 
     }

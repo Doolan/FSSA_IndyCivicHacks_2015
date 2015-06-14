@@ -8,4 +8,10 @@ namespace MvcApplication1.Models
     public class QueueModel
     {
     }
+
+
+    public class QueueNameModel
+    {
+        public object queueName { get; set; }
+    }
 }

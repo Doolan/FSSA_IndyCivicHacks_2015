@@ -206,6 +206,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FSSADB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="get_Queue_Details_Result.cs">
+      <DependentUpon>FSSADB.tt</DependentUpon>
+    </Compile>
     <Compile Include="get_Queue_Status_Result.cs">
       <DependentUpon>FSSADB.tt</DependentUpon>
     </Compile>
@@ -395,7 +398,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Queue\QueueDetail.cshtml" />
+    <Content Include="Views\Queue\Index.cshtml" />
+    <Content Include="Views\Queue\Details.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

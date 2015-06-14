@@ -167,6 +167,10 @@ warning 6002: The table/view 'C:\USERS\STEVEN\DOCUMENTS\FSSA_INDYCIVICHACKS_2015
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="get_Queue_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="QueueName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_Queue_Status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LocationID" Type="int" Mode="In" />
         </Function>
@@ -494,6 +498,10 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="get_Queue_Status" ReturnType="Collection(FSSAModel.get_Queue_Status_Result)">
+          <Parameter Name="LocationID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_Queue_Details" ReturnType="Collection(FSSAModel.get_Queue_Details_Result)">
+            <Parameter Name="QueueName" Mode="In" Type="String" />
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -511,6 +519,11 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
         <ComplexType Name="get_Queue_Status_Result">
           <Property Type="String" Name="Name" Nullable="true" />
           <Property Type="Int32" Name="size" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_Queue_Details_Result">
+          <Property Type="Int32" Name="PersonID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -646,6 +659,15 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_Queue_Details" FunctionName="FSSAModel.Store.get_Queue_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSSAModel.get_Queue_Details_Result">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -660,8 +682,8 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

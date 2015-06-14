@@ -174,5 +174,18 @@ namespace MvcApplication1
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Queue_Status_Result>("get_Queue_Status", locationIDParameter);
         }
+    
+        public virtual ObjectResult<get_Queue_Details_Result> get_Queue_Details(string queueName, Nullable<int> locationID)
+        {
+            var queueNameParameter = queueName != null ?
+                new ObjectParameter("QueueName", queueName) :
+                new ObjectParameter("QueueName", typeof(string));
+    
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Queue_Details_Result>("get_Queue_Details", queueNameParameter, locationIDParameter);
+        }
     }
 }
