@@ -167,6 +167,11 @@ warning 6002: The table/view 'C:\USERS\STEVEN\DOCUMENTS\FSSA_INDYCIVICHACKS_2015
           </ReferentialConstraint>
         </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="get_PersonInQueue_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="QueueName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+          <Parameter Name="PersonID" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_Queue_Details" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="QueueName" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="LocationID" Type="int" Mode="In" />
@@ -211,6 +216,12 @@ warning 6002: The table/view 'C:\USERS\STEVEN\DOCUMENTS\FSSA_INDYCIVICHACKS_2015
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="update_Customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CurrentQueueName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="NewQueue" Type="int" Mode="In" />
+          <Parameter Name="PersonID" Type="int" Mode="In" />
+          <Parameter Name="LocationID" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="FSSAModelStoreContainer">
           <EntitySet Name="DocumentTypes" EntityType="Self.DocumentTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Offices" EntityType="Self.Offices" Schema="dbo" store:Type="Tables" />
@@ -504,6 +515,17 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
             <Parameter Name="QueueName" Mode="In" Type="String" />
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="get_PersonInQueue_Details" ReturnType="Collection(FSSAModel.get_PersonInQueue_Details_Result)">
+            <Parameter Name="QueueName" Mode="In" Type="String" />
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+            <Parameter Name="PersonID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_Customer">
+            <Parameter Name="CurrentQueueName" Mode="In" Type="String" />
+            <Parameter Name="NewQueue" Mode="In" Type="Int32" />
+            <Parameter Name="PersonID" Mode="In" Type="Int32" />
+            <Parameter Name="LocationID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -523,6 +545,14 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
         <ComplexType Name="get_Queue_Details_Result">
           <Property Type="Int32" Name="PersonID" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Reason" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_PersonInQueue_Details_Result">
+          <Property Type="String" Name="name" Nullable="false" />
+          <Property Type="DateTime" Name="DOB" Nullable="false" />
+          <Property Type="String" Name="address" Nullable="true" />
+          <Property Type="Int32" Name="zipcode" Nullable="true" />
+          <Property Type="Int32" Name="mednum" Nullable="true" />
           <Property Type="String" Name="Reason" Nullable="false" />
         </ComplexType>
       </Schema>
@@ -668,6 +698,19 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_PersonInQueue_Details" FunctionName="FSSAModel.Store.get_PersonInQueue_Details">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FSSAModel.get_PersonInQueue_Details_Result">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="zipcode" ColumnName="zipcode" />
+                <ScalarProperty Name="mednum" ColumnName="mednum" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="update_Customer" FunctionName="FSSAModel.Store.update_Customer" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

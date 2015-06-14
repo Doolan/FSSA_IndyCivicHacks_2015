@@ -28,5 +28,12 @@ namespace MvcApplication1.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public bool checkin(string stuff)
+        {
+            Console.WriteLine(stuff);
+            return false;
+        }
     }
 }

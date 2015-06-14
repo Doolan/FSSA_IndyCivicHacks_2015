@@ -10,7 +10,7 @@ CREATE PROCEDURE get_Queue_Status
  
 SELECT Name, ISNULL(size, 0) AS size FROM [Queue]
 	FULL JOIN (SELECT CurrentQueue, COUNT(PersonID) AS size FROM Vists 
-		WHERE @LocationID = 5
+		WHERE LocationID = @LocationID
 		GROUP BY CurrentQueue) AS details
 	ON CurrentQueue = id
  

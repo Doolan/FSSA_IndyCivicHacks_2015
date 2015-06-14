@@ -1,0 +1,18 @@
+﻿@model MvcApplication1.Models.Customer
+
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   // get_PersonInQueue_Details_Result result = MvcApplication1.Controllers.QueueController.GetPersonDetails(ViewBag.QueueName, ViewBag.Location, ViewBag.CustomerID);
+ }
+
+<h1>@Html.DisplayFor(modelItem => Model.name)</h1>
+<h3>Reason: @Html.DisplayFor(modelItem => Model.reason)</h3>
+<p>Date of Birth: @Html.DisplayFor(modelItem => Model.dobdateString)</p>
+@*<p>Address: @Html.DisplayFor(modelItem => Model.address)</p>*@
+<p>Zip Code: @Html.DisplayFor(modelItem => Model.zipcode)</p>
+@*
+@Html.DisplayFor(modelItem => Model.customerID);
+@Html.DisplayFor(modelItem => Model.dob);
+    *@
+<p onclick="returnQueueDetail()" style="color:#2B7348">Back</p>

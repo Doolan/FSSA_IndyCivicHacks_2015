@@ -206,6 +206,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FSSADB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="get_PersonInQueue_Details_Result.cs">
+      <DependentUpon>FSSADB.tt</DependentUpon>
+    </Compile>
     <Compile Include="get_Queue_Details_Result.cs">
       <DependentUpon>FSSADB.tt</DependentUpon>
     </Compile>
@@ -359,6 +362,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\queue.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -400,6 +404,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Queue\Index.cshtml" />
     <Content Include="Views\Queue\Details.cshtml" />
+    <Content Include="Views\Queue\Customer.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

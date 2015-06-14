@@ -6,7 +6,28 @@ window.onload = function(){
 	});
 }
 
-function checkin(){
+var checkin = function(){
+	console.log('hit');	
+	var name = $('#login__username').val().split(' ');
+	var packet ={
+		firstName: name[0],
+		lastName: name[1],
+		zipcode: $('#login__zipcode').val(),
+		ssn: $('#login__ssn').val(),
+		dob: $('#login__DOB')
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "http://localhost:59810/Home/checkin",
+		data: {stuff: packet},
+		success: function(){
+			console.log('success');
+		}
+	});	
+}
+
+/**function checkin(){
 	console.log('hit');
 	var packet ={
 		"name": $("#login__username").value,
@@ -23,7 +44,7 @@ function checkin(){
 		}
 	});
 	window.location = "reasons2.html"
-}
+}**/
 
 function checkin_sp(){
 	console.log('hit');

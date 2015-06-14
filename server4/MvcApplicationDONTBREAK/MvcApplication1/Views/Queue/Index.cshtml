@@ -5,28 +5,7 @@
     ViewBag.Title = "Queue Overview";
     List<MvcApplication1.get_Queue_Status_Result> result = MvcApplication1.Controllers.QueueController.GetQueueNames();
 }
-<script>    
-    var goToQueueDetail = function (name) {
-        var Packet ={
-            queueName : name
-        }
-        
-        $.ajax({
-            url: 'Queue/SetDetails',
-            type: 'POST',            
-            //contentType: 'application/json; charset=utf-8',
-            data: {queueName: name},//JSON.stringify(Packet),
-            success: function(data)
-            {
-                window.location = 'Queue/Details';
-            },
-            error: function(request, status, error)
-            {
-                console.log("failed post");
-            }
-        });
-    }
-</script>
+
 <h1>Queue Management</h1>
 
 

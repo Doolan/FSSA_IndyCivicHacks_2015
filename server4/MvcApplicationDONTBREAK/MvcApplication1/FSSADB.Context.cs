@@ -187,5 +187,43 @@ namespace MvcApplication1
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Queue_Details_Result>("get_Queue_Details", queueNameParameter, locationIDParameter);
         }
+    
+        public virtual ObjectResult<get_PersonInQueue_Details_Result> get_PersonInQueue_Details(string queueName, Nullable<int> locationID, Nullable<int> personID)
+        {
+            var queueNameParameter = queueName != null ?
+                new ObjectParameter("QueueName", queueName) :
+                new ObjectParameter("QueueName", typeof(string));
+    
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            var personIDParameter = personID.HasValue ?
+                new ObjectParameter("PersonID", personID) :
+                new ObjectParameter("PersonID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_PersonInQueue_Details_Result>("get_PersonInQueue_Details", queueNameParameter, locationIDParameter, personIDParameter);
+        }
+    
+        public virtual int update_Customer(string currentQueueName, Nullable<int> newQueue, Nullable<int> personID, Nullable<int> locationID)
+        {
+            var currentQueueNameParameter = currentQueueName != null ?
+                new ObjectParameter("CurrentQueueName", currentQueueName) :
+                new ObjectParameter("CurrentQueueName", typeof(string));
+    
+            var newQueueParameter = newQueue.HasValue ?
+                new ObjectParameter("NewQueue", newQueue) :
+                new ObjectParameter("NewQueue", typeof(int));
+    
+            var personIDParameter = personID.HasValue ?
+                new ObjectParameter("PersonID", personID) :
+                new ObjectParameter("PersonID", typeof(int));
+    
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("LocationID", locationID) :
+                new ObjectParameter("LocationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_Customer", currentQueueNameParameter, newQueueParameter, personIDParameter, locationIDParameter);
+        }
     }
 }
