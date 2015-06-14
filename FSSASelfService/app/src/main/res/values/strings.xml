@@ -4,5 +4,7 @@
     <string name="app_name">FSSA Self Service</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_begin">BeginActivity</string>
+    <string name="begin_info">If you would like to scan documents to be saved by the FSSA, please use this kiosk and press the button below to begin.</string>
 
 </resources>

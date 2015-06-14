@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="civichack.phillips.com.fssaselfservice" >
 
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -14,7 +19,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="FSSA Scanner" >
+            android:label="Main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,12 +28,21 @@
         </activity>
         <activity
             android:name=".CameraActivity"
-            android:screenOrientation="portrait"
-            android:label="Camera"/>
+            android:label="Camera"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ReviewActivity"
-            android:screenOrientation="portrait"
-            android:label="Review"/>
+            android:label="Review"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BeginActivity"
+            android:label="FSSA Scanner" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

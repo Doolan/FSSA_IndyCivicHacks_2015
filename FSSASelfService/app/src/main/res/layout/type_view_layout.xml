@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginStart="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RadioButton
+        android:checked="true"
+        android:onClick="onRadioClicked"
+        android:textSize="16sp"
+        android:id="@+id/license"
+        android:text="Driver's License"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioButton
+        android:layout_below="@id/license"
+        android:onClick="onRadioClicked"
+        android:textSize="16sp"
+        android:id="@+id/ss"
+        android:text="Social Security"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioButton
+        android:layout_below="@id/ss"
+        android:onClick="onRadioClicked"
+        android:textSize="16sp"
+        android:id="@+id/birthcert"
+        android:text="Birth Certificate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioButton
+        android:layout_below="@id/birthcert"
+        android:onClick="onRadioClicked"
+        android:textSize="16sp"
+        android:id="@+id/bank"
+        android:text="Bank Statement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioButton
+        android:layout_below="@id/bank"
+        android:onClick="onRadioClicked"
+        android:textSize="16sp"
+        android:id="@+id/other"
+        android:text="Other...   "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:layout_alignTop="@id/other"
+        android:layout_toRightOf="@id/other"
+        android:layout_toEndOf="@id/other"
+        android:gravity="center"
+        android:id="@+id/otherText"
+        android:enabled="false"
+        android:hint="'Other' Document Type"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
