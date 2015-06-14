@@ -14,20 +14,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Sean on 6/10/2015.
  */
-public class CameraActivity extends Activity implements Camera.PictureCallback {
+public class CameraActivity extends Activity implements Camera.PictureCallback, Camera.AutoFocusCallback {
 
     protected static final int REVIEW_CODE = 234;
+
+    int imageCounter = 0;
 
     private Camera camera;
     private CameraPreview cameraPreview;
 
-    String selectedDoc;
-    public String[] possibledocs = {"Driver's License", "Social Security", "Birth Certificate", "Bank Statement", "Other"};//TODO make 'other' work
+    ArrayList<String> picPathList = new ArrayList<>();
+    ArrayList<String> docTypeList = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +72,10 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
         camera.takePicture(null, null, this);
     }
 
+    public void onTap(View v){
+        camera.autoFocus(this);
+    }
+
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
         Log.e("LOG","Picture taken");
@@ -81,8 +90,14 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Activity.RESULT_CANCELED) return;
 
+        picPathList.add(data.getStringExtra("picpath"));
+        docTypeList.add(data.getStringExtra("docType"));
+
+        if(data.getBooleanExtra("done",true)){
+
+        }
+
         setResult(Activity.RESULT_OK);
-        showConfirmDialog();
 
         //TODO transfer data
         //finish();
@@ -90,8 +105,9 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
     }
 
     private String savePictureToFileSystem(byte[] data) {
-        File file = new File(getFilesDir(), "ScannedDoc");
+        File file = new File(getFilesDir(), "ScannedDoc"+imageCounter);
         saveToFile(data, file);
+        imageCounter++;
         return file.getAbsolutePath();
     }
 
@@ -147,39 +163,17 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Instructions");
         builder.setMessage("1. Align document with the corners.\n\n" +
-                "2. Wait for picture to focus.\n\n" +
+                "2. Tap the screen to focus the camera.\n\n" +
                 "3. Press the 'Take Picture' button when ready.\n\n" +
                 "4. Review the picture.");
         builder.setNeutralButton("OK", new DismissListener());
         builder.show();
     }
 
-    private void showConfirmDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Choose Document Name");
-        builder.setSingleChoiceItems(possibledocs, -1, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                selectedDoc = possibledocs[item];
-            }
-        });
 
-        builder.setNeutralButton("Submit",new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                submitAnotherDialog("Would you like to scan another document?");
-            }
-        });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selectedDoc = null;
-                dialog.dismiss();
-            }
-        });
-
-        builder.show();
+    public void instructionsClicked(View v){
+        showInstructionDialog();
     }
 
     private void submitAnotherDialog(String message){
@@ -206,4 +200,14 @@ public class CameraActivity extends Activity implements Camera.PictureCallback {
         }
     }
 
+    @Override
+    public void onAutoFocus(boolean success, Camera camera) {
+        if(success)Log.e("AUTO FOCUS", "GREAT SUCCESS");
+        else Log.e("AUTO FOCUS", "FAILURE");
+    }
+
+    @Override
+    public void onBackPressed() {
+        submitAnotherDialog("Are you sure that you want to stop scanning?");
+    }
 }
