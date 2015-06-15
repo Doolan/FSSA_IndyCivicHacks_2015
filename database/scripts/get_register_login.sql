@@ -33,8 +33,8 @@ SELECT @Personid = id FROM People
 
 --generate login entry
 
-INSERT INTO Vists ([Timestamp], LocationID, PersonID)
-VALUES (CURRENT_TIMESTAMP, @locationID, @Personid)
+INSERT INTO Vists ([Timestamp], LocationID, PersonID, Reason, CurrentQueue)
+VALUES (CURRENT_TIMESTAMP, @locationID, @Personid, 10 , 5)
 
 DECLARE @vistID INT
 SELECT TOP 1 @vistID = id FROM Vists WHERE PersonID = @Personid AND LocationID =  @locationID ORDER BY [Timestamp] DESC

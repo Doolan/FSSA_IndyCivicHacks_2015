@@ -10,6 +10,8 @@
     
     
         <link rel="stylesheet" href="css/style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="javascript/reasons.js"></script>
 
     
     
@@ -34,41 +36,41 @@
           <!-- <input type="button" name="reason" value="I have an Appointment" id="Appt">  -->
         </div>
         <div class="form__field">
-        <input type="button" name="reason" value="I have an Appointment" id="Appt"> 
+        <input type="button" name="reason" value="I have an Appointment" id="Appt" onclick="setstatus(this)"> 
         </div>
         <div class="form__field">
-          <input type="button" name="reason" value="I would like to Report a Change of Address"> 
+          <input type="button" name="reason" value="I would like to Report a Change of Address" onclick="setstatus(this)"> 
           </div>
           <div class="form__field">
-        <input type="button" name="reason" value="I would like to Report a Change (Not Address)"> 
+        <input type="button" name="reason" value="I would like to Report a Change (Not Address)" onclick="setstatus(this)">  
         </div>
           <div class="form__field">
-        <input type="button" name="reason" value="I would like to Drop Off a Form"> 
+        <input type="button" name="reason" value="I would like to Drop Off a Form" onclick="setstatus(this)"> 
         </div>
           <div class="form__field">
-        <input type="button" name="reason" value="I would like to Drop Off Verification"> 
+        <input type="button" name="reason" value="I would like to Drop Off Verification" onclick="setstatus(this)"> 
         </div>
         <div class="form__field">
-        <input type="button" name="reason" value="I would like to Recieve/Request Verification"> 
+        <input type="button" name="reason" value="I would like to Recieve/Request Verification" onclick="setstatus(this)"> 
         </div>
           <div class="form__field">
-        <input type="button" name="reason" value="I would like to Apply for Assistance"> 
+        <input type="button" name="reason" value="I would like to Apply for Assistance" onclick="setstatus(this)"> 
         </div>
           
         <div class="form__field">
-        <input type="button" name="reason" value="I have a Pre-Hearing Conference"> 
+        <input type="button" name="reason" value="I have a Pre-Hearing Conference" onclick="setstatus(this)"> 
         </div>  
           <div class="form__field">
-        <input type="button" name="reason" value="I would like a Fair Hearing" selected>
+        <input type="button" name="reason" value="I would like a Fair Hearing" selected onclick="setstatus(this)">
         </div>
           
           <div class="form__field">
-        <input type="button" name="reason" value="I have Questions">
+        <input type="button" name="reason" value="I have Questions" onclick="setstatus(this)">
         </div>
         <div class="form__field">
         <div class="other">
-        <span class="other-button">
-          <input type="button" name="reason" value="Other"> </span>
+        <span class="other-button" >
+          <input type="button" name="reason" value="Other" onclick="setstatus(this)"> </span>
           <input type="text" class="form-control" placeholder="Please Specifiy">
         </div></div>
         </div>

@@ -185,6 +185,7 @@ warning 6002: The table/view 'C:\USERS\STEVEN\DOCUMENTS\FSSA_INDYCIVICHACKS_2015
           <Parameter Name="Zipcode" Type="int" Mode="In" />
           <Parameter Name="SSN" Type="int" Mode="In" />
           <Parameter Name="DOB" Type="date" Mode="In" />
+          <Parameter Name="locationID" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -221,6 +222,10 @@ warning 6002: The table/view 'C:\USERS\STEVEN\DOCUMENTS\FSSA_INDYCIVICHACKS_2015
           <Parameter Name="NewQueue" Type="int" Mode="In" />
           <Parameter Name="PersonID" Type="int" Mode="In" />
           <Parameter Name="LocationID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_reason" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Reason" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="locationID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="FSSAModelStoreContainer">
           <EntitySet Name="DocumentTypes" EntityType="Self.DocumentTypes" Schema="dbo" store:Type="Tables" />
@@ -477,6 +482,7 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
             <Parameter Name="Zipcode" Mode="In" Type="Int32" />
             <Parameter Name="SSN" Mode="In" Type="Int32" />
             <Parameter Name="DOB" Mode="In" Type="DateTime" />
+            <Parameter Name="locationID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -525,6 +531,10 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
             <Parameter Name="NewQueue" Mode="In" Type="Int32" />
             <Parameter Name="PersonID" Mode="In" Type="Int32" />
             <Parameter Name="LocationID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_reason">
+            <Parameter Name="Reason" Mode="In" Type="String" />
+            <Parameter Name="locationID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
@@ -711,6 +721,7 @@ FROM [dbo].[ProgramsViewed] AS [ProgramsViewed]</DefiningQuery>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="update_Customer" FunctionName="FSSAModel.Store.update_Customer" />
+          <FunctionImportMapping FunctionImportName="update_reason" FunctionName="FSSAModel.Store.update_reason" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

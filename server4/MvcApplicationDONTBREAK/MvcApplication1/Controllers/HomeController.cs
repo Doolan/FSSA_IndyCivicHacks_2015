@@ -29,7 +29,7 @@ namespace MvcApplication1.Controllers
         public class CheckinData {
             public string firstName { get; set; }
             public string lastName { get; set; }
-            public string zipcode { get; set; }
+            public int zipcode { get; set; }
             public int ssn { get; set; }
             public DateTime dob { get; set; }
         }
@@ -40,18 +40,32 @@ namespace MvcApplication1.Controllers
             Console.WriteLine(stuff);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             CheckinData data = serializer.Deserialize<CheckinData>(stuff);
-
-
-
-            return false;
+            return checkUserIn(data);
         }
 
-        public static int checkUserIn(){
 
-
-
-            return 0;
+        [HttpPost]
+        public bool setReason(string reason)
+        {
+            return updateReason(reason);
         }
+        
+        public static bool updateReason(string reason){
+            FSSAEntities db = new FSSAEntities();
+            db.update_reason(reason, 5);
+            return true;
+        }
+
+
+        public static bool checkUserIn(CheckinData data){
+
+            FSSAEntities db = new FSSAEntities();
+            int id = db.get_register_login(data.firstName, data.lastName, data.zipcode, data.ssn, data.dob, 5);
+            System.Web.HttpContext.Current.Session["checkinID"] = id;
+            return true;
+        }
+
+      
 
     }
 }

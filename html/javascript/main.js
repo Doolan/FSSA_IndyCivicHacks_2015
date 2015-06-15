@@ -18,34 +18,25 @@ var checkin = function(){
 	}
 	var pkt = JSON.stringify(packet);
 
-	$.ajax({
+	try{
+		$.ajax({
 		type: "POST",
 		url: "http://localhost:59810/Home/checkin",
 		data: {stuff: pkt},
 		success: function(){
 			console.log('success');
+			window.location = 'reasons2.html';
 		}
 	});	
+	}catch(e){
+		//don't care
+	}
+	window.location = 'reasons2.html';
+
 }
 
-/**function checkin(){
-	console.log('hit');
-	var packet ={
-		"name": $("#login__username").value,
-		"zipcode": $("#login__zipcode").value ,
-		"DOB": $("#login__DOB").value 
-	}
 
-	$.ajax({
-		type: "POST",
-		url: "http://81f85025.ngrok.io/",
-		data: packet,
-		success: function(){
-			console.log('success');
-		}
-	});
-	window.location = "reasons2.html"
-}**/
+// "{\"firstName\":\"steven\",\"zipcode\":\"60062\",\"ssn\":\"22222222\",\"date\":\"1995-07-26T00:00:00.000Z\"}"
 
 function checkin_sp(){
 	console.log('hit');

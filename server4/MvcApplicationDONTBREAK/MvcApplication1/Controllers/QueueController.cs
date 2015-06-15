@@ -102,7 +102,7 @@ namespace MvcApplication1.Controllers
             customer.dobdateString = details[0].DOB.ToShortDateString();
             customer.address = details[0].address;
             customer.zipcode = (int) details[0].zipcode;
-            customer.mednum = (int) details[0].mednum;
+           // customer.mednum = (int) details[0].mednum;
             customer.reason = details[0].Reason;
             
             //return details[0];

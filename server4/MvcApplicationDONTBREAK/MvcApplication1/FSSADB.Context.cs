@@ -38,7 +38,7 @@ namespace MvcApplication1
         public DbSet<Vist> Vists { get; set; }
         public DbSet<ProgramsViewed> ProgramsVieweds { get; set; }
     
-        public virtual int get_register_login(string first, string last, Nullable<int> zipcode, Nullable<int> sSN, Nullable<System.DateTime> dOB)
+        public virtual int get_register_login(string first, string last, Nullable<int> zipcode, Nullable<int> sSN, Nullable<System.DateTime> dOB, Nullable<int> locationID)
         {
             var firstParameter = first != null ?
                 new ObjectParameter("First", first) :
@@ -60,7 +60,11 @@ namespace MvcApplication1
                 new ObjectParameter("DOB", dOB) :
                 new ObjectParameter("DOB", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("get_register_login", firstParameter, lastParameter, zipcodeParameter, sSNParameter, dOBParameter);
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("locationID", locationID) :
+                new ObjectParameter("locationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("get_register_login", firstParameter, lastParameter, zipcodeParameter, sSNParameter, dOBParameter, locationIDParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
@@ -224,6 +228,19 @@ namespace MvcApplication1
                 new ObjectParameter("LocationID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_Customer", currentQueueNameParameter, newQueueParameter, personIDParameter, locationIDParameter);
+        }
+    
+        public virtual int update_reason(string reason, Nullable<int> locationID)
+        {
+            var reasonParameter = reason != null ?
+                new ObjectParameter("Reason", reason) :
+                new ObjectParameter("Reason", typeof(string));
+    
+            var locationIDParameter = locationID.HasValue ?
+                new ObjectParameter("locationID", locationID) :
+                new ObjectParameter("locationID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_reason", reasonParameter, locationIDParameter);
         }
     }
 }
