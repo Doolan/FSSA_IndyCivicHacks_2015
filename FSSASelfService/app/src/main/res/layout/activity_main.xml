@@ -27,6 +27,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:nextFocusDown="@+id/month"
         android:gravity="center"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
@@ -55,6 +56,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:nextFocusDown="@+id/day"
             android:id="@+id/month"
             android:gravity="center"
             android:hint="MM"
@@ -64,6 +66,7 @@
             android:layout_height="match_parent" />
 
         <EditText
+            android:nextFocusDown="@+id/year"
             android:id="@+id/day"
             android:gravity="center"
             android:hint="DD"
@@ -73,6 +76,7 @@
             android:layout_height="match_parent" />
 
         <EditText
+            android:nextFocusDown="@+id/ssnedit"
             android:id="@+id/year"
             android:gravity="center"
             android:hint="YYYY"

@@ -2,6 +2,7 @@ package civichack.phillips.com.fssaselfservice;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
@@ -20,7 +22,17 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -35,10 +47,17 @@ public class ReviewActivity extends Activity{
     String absPath;
     EditText otherText;
 
+    Context context;
+
+    private final OkHttpClient okHttpClient = new OkHttpClient();
+    public static final MediaType MEDIA_TYPE = MediaType.parse("image/jpeg");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+
+        context = this;
 
         inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -124,7 +143,7 @@ public class ReviewActivity extends Activity{
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                selectedDoc = null;
+                selectedDoc = "Driver's License";
                 dialog.dismiss();
             }
         });
@@ -206,7 +225,7 @@ public class ReviewActivity extends Activity{
 
         RelativeLayout parent = (RelativeLayout)view.getParent();
 
-        if(otherText != null) otherText = (EditText)parent.findViewById(R.id.otherText);
+        if(otherText == null) otherText = (EditText)parent.findViewById(R.id.otherText);
 
         if(!checked) return;
 
@@ -248,6 +267,84 @@ public class ReviewActivity extends Activity{
 
         Log.e("PASSBACKINTENT", absPath);
         Log.e("PASSBACKINTENT", selectedDoc);
+    }
+
+//    final File imagefile = currentImage;
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//
+//                        Log.e("HERE", imagefile.getAbsolutePath());
+//
+//                        Request request = new Request.Builder()
+//                                .url("http://81f85025.ngrok.io")
+//                                .post(RequestBody.create(MEDIA_TYPE, imagefile))
+//                                .build();
+//
+//                        Response response = okHttpClient.newCall(request).execute();
+//
+//                        //delete file
+//                        //imagefile.delete();
+//                        if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+//
+//                    }catch (Exception e){
+//                        e.printStackTrace();;
+//                    }
+//                }
+//            }).start();
+
+    class HTTPTask extends AsyncTask<Void,Void,Void>{
+
+        ProgressDialog dialog;
+
+        @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(context);
+            dialog.setMessage("Submitting Picture...");
+            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            File imagefile = new File(absPath);
+            String doctype = selectedDoc;
+            try {
+                Log.e("HERE", imagefile.getAbsolutePath());
+
+                RequestBody requestBody = new MultipartBuilder()
+                        .type(MultipartBuilder.FORM)
+                        .addPart(
+                                Headers.of("Content-Disposition", "form-data; name=\"title\""),
+                                RequestBody.create(null, doctype))
+                        .addPart(
+                                Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                                RequestBody.create(MEDIA_TYPE, imagefile))
+                        .build();
+
+                Request request = new Request.Builder()
+                        .url("http://81f85025.ngrok.io")
+                        .post(requestBody)
+                        //.post(RequestBody.create(MEDIA_TYPE, imagefile))
+                        .build();
+
+                Response response = okHttpClient.newCall(request).execute();
+
+                //delete file
+                //imagefile.delete();
+                if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            dialog.dismiss();
+        }
     }
 
 }

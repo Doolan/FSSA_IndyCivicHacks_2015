@@ -1,5 +1,7 @@
 package civichack.phillips.com.fssaselfservice;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
@@ -15,10 +17,11 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import java.util.ArrayList;
+
 public class MainActivity extends ActionBarActivity {
 
-    private final OkHttpClient okHttpClient = new OkHttpClient();
-    public static final MediaType MEDIA_TYPE = MediaType.parse("image/jpeg");
+
     private static final int REQ_CAMERA_IMAGE = 123;
 
     @Override
@@ -27,10 +30,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
 
-        Typeface tfArial = Typeface.createFromAsset(getAssets(), "arial.ttf");
-
-
-
+        //Typeface tfArial = Typeface.createFromAsset(getAssets(), "arial.ttf");
 
         findViewById(R.id.takePicBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,19 @@ public class MainActivity extends ActionBarActivity {
 //
     public void cameraClicked(){
 
-        //TODO verify credentials
+        ValidateResults results = validate();
+        if(results != ValidateResults.Good){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getValidateMessage(results)).setTitle("Error");
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+            return;
+        }
 
         Intent intent = new Intent(this, CameraActivity.class);
         startActivityForResult(intent, REQ_CAMERA_IMAGE);
@@ -124,6 +136,25 @@ public class MainActivity extends ActionBarActivity {
         String day = ((EditText)findViewById(R.id.day)).getText().toString();
         String year = ((EditText)findViewById(R.id.year)).getText().toString();
 
+        if(ssn.isEmpty())return ValidateResults.MissingSSN;
+        if(name.isEmpty())return ValidateResults.MissingSSN;
+        if(month.isEmpty() || day.isEmpty() || year.isEmpty())return ValidateResults.MissingDOB;
+
+
+
         return ValidateResults.Good;
+    }
+
+    private String getValidateMessage(ValidateResults results){
+        String pls = "Please enter your ";
+        switch (results){
+            case MissingSSN:
+                return pls + "Social Security Number.";
+            case MissingDOB:
+                return pls + "Date of Birth.";
+            case MissingName:
+                return pls + "Last Name.";
+            default: return "";
+        }
     }
 }

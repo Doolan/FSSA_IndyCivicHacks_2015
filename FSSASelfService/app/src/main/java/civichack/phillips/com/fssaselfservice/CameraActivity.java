@@ -2,6 +2,7 @@ package civichack.phillips.com.fssaselfservice;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -93,11 +94,13 @@ public class CameraActivity extends Activity implements Camera.PictureCallback, 
         picPathList.add(data.getStringExtra("picpath"));
         docTypeList.add(data.getStringExtra("docType"));
 
-        if(data.getBooleanExtra("done",true)){
+        setResult(Activity.RESULT_OK);
 
+        if(data.getBooleanExtra("done",true)){
+            getCompleteDialog();
         }
 
-        setResult(Activity.RESULT_OK);
+
 
         //TODO transfer data
         //finish();
@@ -190,6 +193,31 @@ public class CameraActivity extends Activity implements Camera.PictureCallback, 
         builder.setTitle("Finished?");
         builder.setMessage(message);
 
+        builder.show();
+    }
+
+    private void getCompleteDialog(){
+        final Context context = this;
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Process Complete!");
+        builder.setMessage(getResources().getString(R.string.complete_message));
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
+                builder2.setTitle("Process Complete!");
+                builder2.setMessage(getResources().getString(R.string.next_step));
+                builder2.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                builder2.show();
+            }
+        });
         builder.show();
     }
 
