@@ -36,9 +36,7 @@ namespace MvcApplication1.Controllers
 
 
         #endregion
-
-
-
+        
         #region Ajax calls
         [HttpPost]
         public ActionResult SetDetails(string queueName)

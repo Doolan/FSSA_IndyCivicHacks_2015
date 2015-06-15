@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-
+using System.Web.Script.Serialization;
 namespace MvcApplication1.Controllers
 {
     public class HomeController : Controller
@@ -19,7 +16,7 @@ namespace MvcApplication1.Controllers
         {
             ViewBag.Message = "Your app description page.";
 
-            return View();
+            return View(); 
         }
 
         public ActionResult Contact()
@@ -28,12 +25,33 @@ namespace MvcApplication1.Controllers
 
             return View();
         }
+        
+        public class CheckinData {
+            public string firstName { get; set; }
+            public string lastName { get; set; }
+            public string zipcode { get; set; }
+            public int ssn { get; set; }
+            public DateTime dob { get; set; }
+        }
 
         [HttpPost]
         public bool checkin(string stuff)
         {
             Console.WriteLine(stuff);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            CheckinData data = serializer.Deserialize<CheckinData>(stuff);
+
+
+
             return false;
         }
+
+        public static int checkUserIn(){
+
+
+
+            return 0;
+        }
+
     }
 }

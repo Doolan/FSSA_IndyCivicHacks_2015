@@ -9,25 +9,36 @@ CREATE PROCEDURE get_register_login
  @Last NVARCHAR(MAX),
  @Zipcode INT,
  @SSN INT,
- @DOB DATE)
+ @DOB DATE,
+ @locationID INT)
  AS
  SET NOCOUNT ON
  
+ --check to see if user exists
  IF (SELECT COUNT(id) FROM People 
 		 WHERE first_name = @First AND last_name = @Last
-			AND zipcode = @Zipcode AND ssn = @SSN
-			AND DOB = @DOB) <> 1
+			AND zipcode = @Zipcode AND ssn = @SSN) <> 1
+			--AND DOB = @DOB) <> 1
 BEGIN 
-
-INSERT INTO People (first_name, last_name, DOB, zipcode, ssn)
-VALUES (@First, @Last, @DOB, @Zipcode, @SSN)
-
+	--create user
+	INSERT INTO People (first_name, last_name, DOB, zipcode, ssn)
+	VALUES (@First, @Last, @DOB, @Zipcode, @SSN)
 END
 
-RETURN (SELECT id FROM People 
-		 WHERE first_name = @First AND last_name = @Last
-			AND zipcode = @Zipcode AND ssn = @SSN
-			AND DOB = @DOB)
+--get personid
+DECLARE @Personid INT
+SELECT @Personid = id FROM People 
+		WHERE first_name = @First AND last_name = @Last
+		AND zipcode = @Zipcode AND ssn = @SSN
 
+--generate login entry
+
+INSERT INTO Vists ([Timestamp], LocationID, PersonID)
+VALUES (CURRENT_TIMESTAMP, @locationID, @Personid)
+
+DECLARE @vistID INT
+SELECT TOP 1 @vistID = id FROM Vists WHERE PersonID = @Personid AND LocationID =  @locationID ORDER BY [Timestamp] DESC
+
+SELECT @personid AS personID, @vistID AS vistID
 
  GO

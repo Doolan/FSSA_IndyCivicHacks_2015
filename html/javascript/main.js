@@ -14,13 +14,14 @@ var checkin = function(){
 		lastName: name[1],
 		zipcode: $('#login__zipcode').val(),
 		ssn: $('#login__ssn').val(),
-		dob: $('#login__DOB')
+		date: document.getElementById("login__DOB").valueAsDate
 	}
+	var pkt = JSON.stringify(packet);
 
 	$.ajax({
 		type: "POST",
 		url: "http://localhost:59810/Home/checkin",
-		data: {stuff: packet},
+		data: {stuff: pkt},
 		success: function(){
 			console.log('success');
 		}

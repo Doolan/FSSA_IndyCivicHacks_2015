@@ -29,7 +29,7 @@ END
 IF(SELECT COUNT(ID) FROM [Vists] WHERE PersonID = @PersonID AND CurrentQueue = @OLDQueueID AND @LocationID =  LocationID) = 0
 BEGIN
 	PRINT @OLDQueueID
-	PRINT 'The Person ' + CONVERT(VARCHAR(30), @PersonID) + ' is not in the Queue ' +CONVERT(VARCHAR(30), @QueueName)
+	PRINT 'The Person ' + CONVERT(VARCHAR(30), @PersonID) + ' is not in the Queue ' +CONVERT(VARCHAR(30), @CurrentQueueName)
 	RETURN 1	
 END
 
